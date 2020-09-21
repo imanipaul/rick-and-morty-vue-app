@@ -22,17 +22,21 @@ export default {
 
     const state = reactive({
       data: "",
-      // page: 1,
-      maxPages: "",
+      maxPages: 3,
     });
 
     watch(page, (page) => {
       console.log("new page is", page);
+      fetchData(page);
     });
 
     function increasePage() {
       console.log("increasing page...");
-      page.value++;
+      if (page.value === state.maxPages) {
+        console.log("no more pages!");
+      } else {
+        page.value++;
+      }
     }
 
     async function fetchData(page) {
@@ -43,7 +47,7 @@ export default {
         .then((response) => {
           console.log("response is", response);
           state.data = response.data.results;
-          state.maxPages = response.data.pages;
+          state.maxPages = response.data.info.pages;
           loading.value = false;
         });
     }
