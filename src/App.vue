@@ -1,8 +1,11 @@
 <template>
   <h1>Rick and Morty Look Up</h1>
-  <Browse :data="state.data" :loading="state.loading" />
-  <button @click="decreasePage">Previous Page</button>
-  <button @click="increasePage">Next Page</button>
+  <Browse
+    :data="state.data"
+    :loading="state.loading"
+    :decreasePage="decreasePage"
+    :increasePage="increasePage"
+  />
 </template>
 
 <script>
@@ -26,23 +29,20 @@ export default {
     });
 
     watch(page, (page) => {
-      console.log("new page is", page);
       fetchData(page);
     });
 
     function increasePage() {
-      console.log("increasing page...");
       if (page.value === state.maxPages) {
-        console.log("no more pages!");
+        alert("No more pages!");
       } else {
         page.value++;
       }
     }
 
     function decreasePage() {
-      console.log("decreasing page...");
       if (page.value === 1) {
-        console.log("This is the first page!");
+        alert("This is the first page!");
       } else {
         page.value--;
       }
