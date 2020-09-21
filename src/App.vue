@@ -1,17 +1,17 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <h1>Rick and Morty Look Up</h1>
+  <Browse />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Browse from "./components/Browse.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    HelloWorld
-  }
-}
+    Browse,
+  },
+};
 </script>
 
 <style>
