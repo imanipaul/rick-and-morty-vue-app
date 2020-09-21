@@ -1,6 +1,7 @@
 <template>
   <h1>Rick and Morty Look Up</h1>
   <Browse :data="state.data" :loading="state.loading" />
+  <button @click="decreasePage">Previous Page</button>
   <button @click="increasePage">Next Page</button>
 </template>
 
@@ -15,7 +16,6 @@ export default {
     Browse,
   },
   setup() {
-    // const data = ref(null);
     const loading = ref(true);
     const error = ref(null);
     const page = ref(1);
@@ -36,6 +36,15 @@ export default {
         console.log("no more pages!");
       } else {
         page.value++;
+      }
+    }
+
+    function decreasePage() {
+      console.log("decreasing page...");
+      if (page.value === 1) {
+        console.log("This is the first page!");
+      } else {
+        page.value--;
       }
     }
 
@@ -62,6 +71,7 @@ export default {
       error,
       fetchData,
       increasePage,
+      decreasePage,
     };
   },
 };
