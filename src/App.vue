@@ -1,13 +1,13 @@
 <template>
   <h1>Rick and Morty Look Up</h1>
   <Browse :data="state.data" :loading="state.loading" />
-  <button @click="fetchData(2)">Next Page</button>
+  <button @click="increasePage">Next Page</button>
 </template>
 
 <script>
 import Browse from "./components/Browse.vue";
 import axios from "axios";
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, watch } from "vue";
 
 export default {
   name: "App",
@@ -18,14 +18,22 @@ export default {
     // const data = ref(null);
     const loading = ref(true);
     const error = ref(null);
+    const page = ref(1);
 
     const state = reactive({
       data: "",
+      // page: 1,
+      maxPages: "",
     });
 
-    // function testPrint() {
-    //   console.log("testinggg....");
-    // }
+    watch(page, (page) => {
+      console.log("new page is", page);
+    });
+
+    function increasePage() {
+      console.log("increasing page...");
+      page.value++;
+    }
 
     async function fetchData(page) {
       loading.value = true;
@@ -35,12 +43,13 @@ export default {
         .then((response) => {
           console.log("response is", response);
           state.data = response.data.results;
+          state.maxPages = response.data.pages;
           loading.value = false;
         });
     }
 
     onMounted(() => {
-      fetchData(1);
+      fetchData(page);
     });
 
     return {
@@ -48,6 +57,7 @@ export default {
       loading,
       error,
       fetchData,
+      increasePage,
     };
   },
 };
