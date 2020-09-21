@@ -1,6 +1,7 @@
 <template>
   <h1>Rick and Morty Look Up</h1>
   <Browse :data="state.data" :loading="state.loading" />
+  <button @click="fetchData(2)">Next Page</button>
 </template>
 
 <script>
@@ -22,11 +23,15 @@ export default {
       data: "",
     });
 
-    async function fetchData() {
+    // function testPrint() {
+    //   console.log("testinggg....");
+    // }
+
+    async function fetchData(page) {
       loading.value = true;
 
       await axios
-        .get("https://rickandmortyapi.com/api/character/")
+        .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
         .then((response) => {
           console.log("response is", response);
           state.data = response.data.results;
@@ -35,13 +40,14 @@ export default {
     }
 
     onMounted(() => {
-      fetchData();
+      fetchData(1);
     });
 
     return {
       state,
       loading,
       error,
+      fetchData,
     };
   },
 };
