@@ -6,6 +6,7 @@
     :decreasePage="decreasePage"
     :increasePage="increasePage"
   />
+  <router-view />
 </template>
 
 <script>
@@ -29,7 +30,7 @@ export default {
     });
 
     watch(page, (page) => {
-      fetchData(page);
+      fetchAllCharacters(page);
     });
 
     function increasePage() {
@@ -48,7 +49,7 @@ export default {
       }
     }
 
-    async function fetchData(page) {
+    async function fetchAllCharacters(page) {
       loading.value = true;
 
       await axios
@@ -62,14 +63,14 @@ export default {
     }
 
     onMounted(() => {
-      fetchData(page);
+      fetchAllCharacters(page);
     });
 
     return {
       state,
       loading,
       error,
-      fetchData,
+      fetchAllCharacters,
       increasePage,
       decreasePage,
     };
