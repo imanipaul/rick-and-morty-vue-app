@@ -7,11 +7,6 @@
       <router-link to="/character/1">
         <p>{{selectedCharacter.name}} {{selectedCharacter.status}}</p>
       </router-link>
-      <!-- <ul>
-        <li v-for=" in todos" :key="t.id" @click="selectedTodo = t">
-          <router-link to="/character/1">{{t.title}}</router-link>
-        </li>
-      </ul>-->
     </div>
   </div>
 </template>
@@ -19,7 +14,7 @@
 <script>
 // @ is an alias to /src
 // import { onMounted } from "vue";
-import useCharacter from "../store/characters";
+import useCharacter from "../store/character";
 import SelectedTodo from "../components/SelectedTodo.vue";
 
 export default {
@@ -27,11 +22,6 @@ export default {
   components: { SelectedTodo },
   setup() {
     const { selectedCharacter, loading } = useCharacter(4);
-
-    // onMounted(() => {
-    //   console.log("selectedCharacter is", selectedCharacter);
-    //   fetchCharacter();
-    // });
 
     return {
       selectedCharacter,

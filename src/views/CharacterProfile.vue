@@ -9,7 +9,7 @@
 <script>
 // @ is an alias to /src
 
-import useCharacter from "../store/characters";
+import useCharacter from "../store/character";
 
 export default {
   name: "CharacterProfile",

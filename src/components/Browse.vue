@@ -2,7 +2,7 @@
   <div class="browse-container">
     <h1>Browse Characters</h1>
     <div v-if="!loading" class="character-container">
-      <div v-for="item in data" :key="item.id">
+      <div v-for="item in allCharacters" :key="item.id">
         <h2>{{item.name}}</h2>
         <img :src="item.image" />
         <p>{{item.status}}</p>
@@ -16,15 +16,18 @@
 </template>
 
 <script>
+import useCharacters from "../store/all-characters";
+import { onMounted } from "vue";
+
 export default {
   name: "Browse",
   props: {
     data: {
       type: Object,
     },
-    loading: {
-      type: Boolean,
-    },
+    // loading: {
+    //   type: Boolean,
+    // },
     decreasePage: {
       type: Function,
       required: true,
@@ -33,6 +36,18 @@ export default {
       type: Function,
       required: true,
     },
+  },
+  setup() {
+    const { allCharacters, loading } = useCharacters();
+
+    onMounted(() => {
+      console.log("all Characters in browse", allCharacters);
+    });
+
+    return {
+      allCharacters,
+      loading,
+    };
   },
 };
 </script>

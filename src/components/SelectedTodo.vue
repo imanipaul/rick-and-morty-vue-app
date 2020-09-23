@@ -5,7 +5,7 @@
 <script>
 // import { watch } from "vue";
 // import useTodos from "../store/todos";
-import useCharacter from "../store/characters";
+import useCharacter from "../store/character";
 
 export default {
   setup() {

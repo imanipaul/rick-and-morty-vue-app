@@ -1,19 +1,14 @@
 <template>
   <h1>Rick and Morty Look Up</h1>
-  <Browse
-    :data="state.data"
-    :loading="state.loading"
-    :decreasePage="decreasePage"
-    :increasePage="increasePage"
-  />
+  <Browse :decreasePage="decreasePage" :increasePage="increasePage" />
   <router-view />
 </template>
 
 <script>
 import Browse from "./components/Browse.vue";
-import axios from "axios";
-import { ref, onMounted, reactive, watch } from "vue";
-import useCharacter from "./store/characters";
+import { ref, onMounted, watch } from "vue";
+import useCharacter from "./store/character";
+import useCharacters from "./store/all-characters";
 
 export default {
   name: "App",
@@ -21,26 +16,19 @@ export default {
     Browse,
   },
   setup() {
-    const loading = ref(true);
+    // const loading = ref(true);
     const error = ref(null);
     const page = ref(1);
-    const {
-      selectedCharacter,
-      fetchCharacter,
-      loading: loadingChar,
-    } = useCharacter(4);
-
-    const state = reactive({
-      data: "",
-      maxPages: 3,
-    });
+    const { fetchCharacter } = useCharacter(4);
+    const { allCharacters, fetchCharacters, loading, info } = useCharacters(4);
 
     watch(page, (page) => {
-      fetchAllCharacters(page);
+      fetchCharacters(page);
+      console.log("page is", page.value);
     });
 
     function increasePage() {
-      if (page.value === state.maxPages) {
+      if (page.value === info.pages) {
         alert("No more pages!");
       } else {
         page.value++;
@@ -55,33 +43,17 @@ export default {
       }
     }
 
-    async function fetchAllCharacters(page) {
-      loading.value = true;
-
-      await axios
-        .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
-        .then((response) => {
-          console.log("response is", response);
-          state.data = response.data.results;
-          state.maxPages = response.data.info.pages;
-          loading.value = false;
-        });
-    }
-
     onMounted(() => {
-      fetchAllCharacters(page);
+      fetchCharacters(page);
       fetchCharacter();
     });
 
     return {
-      state,
       loading,
       error,
-      fetchAllCharacters,
       increasePage,
       decreasePage,
-      selectedCharacter,
-      loadingChar,
+      allCharacters,
     };
   },
 };
