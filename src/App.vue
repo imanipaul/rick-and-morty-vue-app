@@ -13,6 +13,7 @@
 import Browse from "./components/Browse.vue";
 import axios from "axios";
 import { ref, onMounted, reactive, watch } from "vue";
+import useCharacter from "./store/characters";
 
 export default {
   name: "App",
@@ -23,6 +24,11 @@ export default {
     const loading = ref(true);
     const error = ref(null);
     const page = ref(1);
+    const {
+      selectedCharacter,
+      fetchCharacter,
+      loading: loadingChar,
+    } = useCharacter(4);
 
     const state = reactive({
       data: "",
@@ -64,6 +70,7 @@ export default {
 
     onMounted(() => {
       fetchAllCharacters(page);
+      fetchCharacter();
     });
 
     return {
@@ -73,6 +80,8 @@ export default {
       fetchAllCharacters,
       increasePage,
       decreasePage,
+      selectedCharacter,
+      loadingChar,
     };
   },
 };

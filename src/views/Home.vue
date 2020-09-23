@@ -18,8 +18,7 @@
 
 <script>
 // @ is an alias to /src
-import { onMounted } from "vue";
-// import useTodos from "../store/todos";
+// import { onMounted } from "vue";
 import useCharacter from "../store/characters";
 import SelectedTodo from "../components/SelectedTodo.vue";
 
@@ -27,19 +26,11 @@ export default {
   name: "Home",
   components: { SelectedTodo },
   setup() {
-    // const { todos, fetchTodos, selectedTodo, loading } = useTodos();
-    const { selectedCharacter, fetchCharacter, loading } = useCharacter(4);
+    const { selectedCharacter, loading } = useCharacter(4);
 
-    onMounted(() => {
-      // fetchTodos();
-      console.log("selectedCharacter is", selectedCharacter);
-      fetchCharacter();
-      // console.log("mounted selected todo", selectedTodo);
-      // console.log("mounted selected character", selectedCharacter);
-    });
-
-    // watch(selectedTodo, (selectedTodo) => {
-    //   console.log("selected todo is", selectedTodo);
+    // onMounted(() => {
+    //   console.log("selectedCharacter is", selectedCharacter);
+    //   fetchCharacter();
     // });
 
     return {
