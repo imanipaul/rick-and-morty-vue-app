@@ -25,20 +25,14 @@ export default {
     data: {
       type: Object,
     },
-    // loading: {
-    //   type: Boolean,
-    // },
-    decreasePage: {
-      type: Function,
-      required: true,
-    },
-    increasePage: {
-      type: Function,
-      required: true,
-    },
   },
   setup() {
-    const { allCharacters, loading } = useCharacters();
+    const {
+      allCharacters,
+      loading,
+      decreasePage,
+      increasePage,
+    } = useCharacters();
 
     onMounted(() => {
       console.log("all Characters in browse", allCharacters);
@@ -47,6 +41,8 @@ export default {
     return {
       allCharacters,
       loading,
+      decreasePage,
+      increasePage,
     };
   },
 };

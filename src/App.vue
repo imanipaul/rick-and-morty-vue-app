@@ -1,58 +1,56 @@
 <template>
   <h1>Rick and Morty Look Up</h1>
-  <Browse :decreasePage="decreasePage" :increasePage="increasePage" />
   <router-view />
 </template>
 
 <script>
-import Browse from "./components/Browse.vue";
-import { ref, onMounted, watch } from "vue";
+import { onMounted, watch } from "vue";
 import useCharacter from "./store/character";
 import useCharacters from "./store/all-characters";
 
 export default {
   name: "App",
-  components: {
-    Browse,
-  },
   setup() {
-    // const loading = ref(true);
-    const error = ref(null);
-    const page = ref(1);
+    // const page = ref(1);
     const { fetchCharacter } = useCharacter(4);
-    const { allCharacters, fetchCharacters, loading, info } = useCharacters(4);
+    const {
+      allCharacters,
+      fetchCharacters,
+      loading,
+      // info,
+      currentPage,
+    } = useCharacters(4);
 
-    watch(page, (page) => {
-      fetchCharacters(page);
-      console.log("page is", page.value);
+    watch(currentPage, (currentPage) => {
+      fetchCharacters(currentPage);
+      console.log("page is", currentPage);
     });
 
-    function increasePage() {
-      if (page.value === info.pages) {
-        alert("No more pages!");
-      } else {
-        page.value++;
-      }
-    }
+    // function increasePage() {
+    //   if (currentPage.value === info.pages) {
+    //     alert("No more pages!");
+    //   } else {
+    //     currentPage.value++;
+    //   }
+    // }
 
-    function decreasePage() {
-      if (page.value === 1) {
-        alert("This is the first page!");
-      } else {
-        page.value--;
-      }
-    }
+    // function decreasePage() {
+    //   if (page.value === 1) {
+    //     alert("This is the first page!");
+    //   } else {
+    //     page.value--;
+    //   }
+    // }
 
     onMounted(() => {
-      fetchCharacters(page);
+      fetchCharacters(currentPage);
       fetchCharacter();
     });
 
     return {
       loading,
-      error,
-      increasePage,
-      decreasePage,
+      // increasePage,
+      // decreasePage,
       allCharacters,
     };
   },

@@ -4,7 +4,8 @@ import {reactive, toRefs} from 'vue'
 const state = reactive({
     allCharacters: [],
     loading: true,
-    info: null
+    info: null,
+    currentPage: 1,
 })
 
 
@@ -27,8 +28,21 @@ export default function useCharacters() {
         console.log("results is", results)
     }
 
+    const increasePage = () => {
+       if (state.currentPage != state.info.pages) {
+           state.currentPage++
+       }
+    }
+    const decreasePage = () => {
+       if (state.currentPage != 1) {
+           state.currentPage--
+       }
+    }
+
     return {
         ...toRefs(state),
-        fetchCharacters
+        fetchCharacters,
+        increasePage,
+        decreasePage
     }
 }
