@@ -3,7 +3,7 @@
     <h1>Home</h1>
     <h2 v-if="loading">Loading...</h2>
     <div v-else>
-      <Browse :decreasePage="decreasePage" :increasePage="increasePage" />
+      <Browse />
     </div>
   </div>
 </template>

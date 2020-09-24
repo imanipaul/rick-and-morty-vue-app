@@ -1,7 +1,5 @@
 import {reactive, toRefs} from 'vue'
 
-// const allCharsUrl = 'https://rickandmortyapi.com/api/character/'
-
 const state = reactive({
     selectedCharacter: '',
     loading: true,

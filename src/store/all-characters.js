@@ -21,11 +21,8 @@ export default function useCharacters() {
         let {info, results} = await fetchAllUrl(page)
         state.info = info
         state.allCharacters = results
-        console.log('characters are', state.allCharacters)
         state.loading = false
 
-        console.log("info is", info)
-        console.log("results is", results)
     }
 
     const increasePage = () => {
