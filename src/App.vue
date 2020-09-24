@@ -1,77 +1,54 @@
 <template>
   <h1>Rick and Morty Look Up</h1>
-  <Browse
-    :data="state.data"
-    :loading="state.loading"
-    :decreasePage="decreasePage"
-    :increasePage="increasePage"
-  />
+  <router-view />
 </template>
 
 <script>
-import Browse from "./components/Browse.vue";
-import axios from "axios";
-import { ref, onMounted, reactive, watch } from "vue";
+import { onMounted, watch } from "vue";
+import useCharacters from "./store/all-characters";
 
 export default {
   name: "App",
-  components: {
-    Browse,
-  },
   setup() {
-    const loading = ref(true);
-    const error = ref(null);
-    const page = ref(1);
+    // const page = ref(1);
+    const {
+      allCharacters,
+      fetchCharacters,
+      loading,
+      // info,
+      currentPage,
+    } = useCharacters(4);
 
-    const state = reactive({
-      data: "",
-      maxPages: 3,
+    watch(currentPage, (currentPage) => {
+      fetchCharacters(currentPage);
+      console.log("page is", currentPage);
     });
 
-    watch(page, (page) => {
-      fetchData(page);
-    });
+    // function increasePage() {
+    //   if (currentPage.value === info.pages) {
+    //     alert("No more pages!");
+    //   } else {
+    //     currentPage.value++;
+    //   }
+    // }
 
-    function increasePage() {
-      if (page.value === state.maxPages) {
-        alert("No more pages!");
-      } else {
-        page.value++;
-      }
-    }
-
-    function decreasePage() {
-      if (page.value === 1) {
-        alert("This is the first page!");
-      } else {
-        page.value--;
-      }
-    }
-
-    async function fetchData(page) {
-      loading.value = true;
-
-      await axios
-        .get(`https://rickandmortyapi.com/api/character/?page=${page}`)
-        .then((response) => {
-          console.log("response is", response);
-          state.data = response.data.results;
-          state.maxPages = response.data.info.pages;
-          loading.value = false;
-        });
-    }
+    // function decreasePage() {
+    //   if (page.value === 1) {
+    //     alert("This is the first page!");
+    //   } else {
+    //     page.value--;
+    //   }
+    // }
 
     onMounted(() => {
-      fetchData(page);
+      fetchCharacters(currentPage);
     });
 
     return {
-      state,
       loading,
-      error,
-      fetchData,
-      increasePage,
-      decreasePage,
+      // increasePage,
+      // decreasePage,
+      allCharacters,
     };
   },
 };
