@@ -11,17 +11,17 @@
 <script>
 // @ is an alias to /src
 import Browse from "../components/Browse";
-import useCharacter from "../store/character";
+// import useCharacter from "../store/character";
 
 export default {
   name: "Home",
   components: { Browse },
   setup() {
-    const { selectedCharacter, loading } = useCharacter(4);
+    // const { selectedCharacter, loading } = useCharacter(4);
 
     return {
-      selectedCharacter,
-      loading,
+      // selectedCharacter,
+      // loading,
     };
   },
 };

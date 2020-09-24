@@ -5,14 +5,12 @@
 
 <script>
 import { onMounted, watch } from "vue";
-import useCharacter from "./store/character";
 import useCharacters from "./store/all-characters";
 
 export default {
   name: "App",
   setup() {
     // const page = ref(1);
-    const { fetchCharacter } = useCharacter(4);
     const {
       allCharacters,
       fetchCharacters,
@@ -44,7 +42,6 @@ export default {
 
     onMounted(() => {
       fetchCharacters(currentPage);
-      fetchCharacter();
     });
 
     return {
