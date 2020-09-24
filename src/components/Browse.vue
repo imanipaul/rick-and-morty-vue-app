@@ -5,7 +5,6 @@
       <div v-for="item in allCharacters" :key="item.id">
         <h2>{{item.name}}</h2>
         <img :src="item.image" @click="goToCharacter(item.id)" />
-        <p>{{item.status}}</p>
       </div>
     </div>
     <div v-else>Loading...</div>
@@ -52,7 +51,6 @@ export default {
       loading,
       decreasePage,
       increasePage,
-      // console,
       goToCharacter,
     };
   },
