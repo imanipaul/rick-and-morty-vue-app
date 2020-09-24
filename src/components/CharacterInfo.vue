@@ -1,5 +1,4 @@
 <template>
-  Character Info
   <p>Name: {{character.name}}</p>
   <img :src="character.image" alt="character headshot" />
   <p>Status: {{character.status}}</p>
