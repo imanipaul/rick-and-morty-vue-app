@@ -1,8 +1,11 @@
 <template>
   <div class="about">
-    <h1>Character Info</h1>
-    <!-- <h3 v-if="selectedCharacter">{{selectedCharacter.name}} {{selectedCharacter.species}}</h3> -->
-    <h3 v-if="!loading">{{selectedCharacter.name}} {{selectedCharacter.species}}</h3>
+    <h1>Character Profile</h1>
+    <!-- <h3 v-if="!loading">{{selectedCharacter.name}} {{selectedCharacter.species}}</h3> -->
+    <div v-if="loading">Loading Character....</div>
+    <div v-else>
+      <CharacterInfo :character="selectedCharacter" :loading="loading" />
+    </div>
     <router-link to="/">Back to Home</router-link>
   </div>
 </template>
@@ -12,6 +15,7 @@ import { onMounted } from "vue";
 // @ is an alias to /src
 import { useRoute } from "vue-router";
 import useCharacter from "../store/character";
+import CharacterInfo from "../components/CharacterInfo";
 
 export default {
   name: "CharacterProfile",
@@ -26,6 +30,7 @@ export default {
     return {
       selectedCharacter,
       loading,
+      CharacterInfo,
     };
   },
 };
